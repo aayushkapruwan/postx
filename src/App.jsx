@@ -1,47 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import authServiceInstance from "./appwrite/authservice.js"; // Adjust the path
-
-
+import { useEffect, useState } from "react";
+import { login, logout } from "./slices/authslice.js";
+import { useDispatch } from "react-redux";
+import Header from "./components/header/header.jsx";
+import authServiceInstance from "./appwrite/authservice.js";
+import loadingGif from './assets/loading.gif'; // Import the loading GIF
+import { motion } from "framer-motion";
 function App() {
-  const [count, setCount] = useState(0)
-  // authServiceInstance.logout()
-  // authServiceInstance.createAccount({email:"bawa6271i@gmail.com",password:"Ayush@7310",Name:"Ayush233"});
- async function func(){
-  const x= await authServiceInstance.getCurrentUser();
-  console.log(x);
-  
- }
- func()
+  const [loading, setloading] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(
+    () =>{
+      authServiceInstance
+      .getCurrentUser()
+      .then((userdata) => {
+        if (userdata) {
+          dispatch(login({ ...userdata }));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .catch((error) => {
+        alert("network error :404",error);
+      })//if request not sent to network by authserviceinstance
+      .finally(() => {
+        setloading(false);
+      })
+    }
+    ,
+    []
+  );
+  if (!loading) {
+    return (
+      <>
+        <Header />
+      </>
+    );
+  } else {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen bg-gray-200">
+        <img
+          className="h-50 w-50 rounded-full"
+          src={loadingGif}
+          alt=""
+        />
 
-  
-  
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react bg-red-400" alt="React logo" />
-        </a>
+        <span className="text-4xl font-bold text-black">
+          Loading
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              className="inline-block"
+              animate={{ scale: [1, 1.5, 1] }} // Dots grow and shrink
+              transition={{
+                repeat: Infinity,
+                duration: 1,
+                ease: "easeInOut",
+                delay: i * 0.2, // Staggered effect
+              }}
+            >
+              .
+            </motion.span>
+          ))}
+        </span>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
 }
 
-export default App
+export default App;
