@@ -78,8 +78,9 @@ function Header() {
                     //   navigate(navbtn.url);
                     // }}
                     key={ID.unique()}
-                    className="w-full   flex justify-center items-center gap-x-6  hover:bg-gray-500/30  p-4 text-center"
+                    className="w-full relative  flex justify-center items-center gap-x-6   p-4 text-center"
                   >
+                    <div className=" absolute w-[95%] h-[75%] rounded-md hover:bg-gray-500/30 m-auto"></div>
                     {navbtn.icon}
                     <button className="inline-flex items-center gap-2">
                       {navbtn.name}
@@ -90,7 +91,8 @@ function Header() {
               {userstatus && (
                 <Logoutbtn
                   IDs={ID.unique}
-                  className="w-full   flex justify-center items-center gap-x-6  hover:bg-gray-500/30  p-4 text-center"
+                  vertical="true"
+                  className="w-full   flex justify-center items-center gap-x-6   p-4 text-center"
                 />
               )}
             </div>
