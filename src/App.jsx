@@ -3,14 +3,14 @@ import { login, logout } from "./slices/authslice.js";
 import { useDispatch } from "react-redux";
 import Header from "./components/header/header.jsx";
 import authServiceInstance from "./appwrite/authservice.js";
-import loadingGif from './assets/loading.gif'; // Import the loading GIF
+import loadingGif from "./assets/loading.gif"; // Import the loading GIF
 import { motion } from "framer-motion";
+import Footer from "./components/footer/footer.jsx";
 function App() {
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
-  useEffect(
-    () =>{
-      authServiceInstance
+  useEffect(() => {
+    authServiceInstance
       .getCurrentUser()
       .then((userdata) => {
         if (userdata) {
@@ -20,29 +20,31 @@ function App() {
         }
       })
       .catch((error) => {
-        alert("network error :404",error);
-      })//if request not sent to network by authserviceinstance
+        alert("network error :404", error);
+      }) //if request not sent to network by authserviceinstance
       .finally(() => {
         setloading(false);
-      })
-    }
-    ,
-    []
-  );
+      });
+  }, []);
   if (!loading) {
     return (
       <>
         <Header />
+        <div className="flex flex-col min-h-screen">
+          {/* Main Content */}
+          <main className="flex-grow">
+            {/* Other page components go here */}
+          </main>
+
+          {/* Footer (scrolls normally, but stays at the bottom if no content) */}
+          <Footer />
+        </div>
       </>
     );
   } else {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-gray-200">
-        <img
-          className="h-50 w-50 rounded-full"
-          src={loadingGif}
-          alt=""
-        />
+        <img className="h-50 w-50 rounded-full" src={loadingGif} alt="" />
 
         <span className="text-4xl font-bold text-black">
           Loading
