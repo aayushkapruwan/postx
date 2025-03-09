@@ -10,6 +10,7 @@ function App() {
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
+    authServiceInstance.accountLogin({email:"kapruwanayush67@gmail.com",password:"Ayush@7310"})
     authServiceInstance
       .getCurrentUser()
       .then((userdata) => {

@@ -6,13 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Hamburger from "hamburger-react";
 import { ID } from "appwrite";
-import {
-  Home,
-  LogIn,
-  UserPlus,
-  FileText,
-  PlusSquare,
-} from "lucide-react";
+import { Home, LogIn, UserPlus, FileText, PlusSquare } from "lucide-react";
 
 function Header() {
   const userstatus = useSelector((state) => state.authslice.status);
@@ -94,7 +88,10 @@ function Header() {
                 ) : null
               )}
               {userstatus && (
-                <Logoutbtn IDs={ID.unique} className="w-full   flex justify-center items-center gap-x-6  hover:bg-gray-500/30  p-4 text-center"/>
+                <Logoutbtn
+                  IDs={ID.unique}
+                  className="w-full   flex justify-center items-center gap-x-6  hover:bg-gray-500/30  p-4 text-center"
+                />
               )}
             </div>
             {/* //smallscreen 
@@ -115,7 +112,10 @@ function Header() {
                 ) : null
               )}
               {userstatus && (
-                <Logoutbtn IDs={ID.unique} className="w-full   flex justify-center items-center gap-x-6  md:hover:text-white   p-4"/>
+                <Logoutbtn
+                  IDs={ID.unique}
+                  className="w-full   flex justify-center items-center gap-x-6  md:hover:text-white   p-4"
+                />
               )}
             </div>
             {/* //large-screen */}
