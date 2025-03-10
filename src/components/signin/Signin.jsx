@@ -23,7 +23,7 @@ function Signin() {
       if (sessiondata) {
         const userData = await authService.getCurrentUser();
         dispatch(login(userData));
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       seterror(error);
