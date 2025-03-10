@@ -12,9 +12,46 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+      /* Vanta.js background layer */
+      #vanta-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -9999; /* Minimum z-index */
+      }
+    </style>
   </head>
   <body>
+    <div id="vanta-background"></div>
+    <!-- Vanta.js Background -->
     <div id="root"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        VANTA.DOTS({
+          el: "#vanta-background",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          color: 0x9239a6, // Only this color will be applied to dots
+          backgroundColor: 0x000000, // Black background
+          spacing: 30, // Adjust spacing between dots
+          size: 3.0, // Dot size
+          showLines: false, // Disable sphere effect
+        });
+      });
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

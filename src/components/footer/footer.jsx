@@ -4,7 +4,7 @@ import Logo from '../logo/logo'
 
 function Footer() {
   return (
-    <section className="relative  w-full overflow-hidden py-10 hidden bg-gray-400 border border-t-2 border-t-black md:block">
+    <section className="relative  w-full overflow-hidden py-10 mt-0 hidden bg-gray-400 border border-t-2 border-t-black md:block">
             <div className="relative z-10 mx-auto max-w-7xl px-4">
                 <div className="-m-6 flex flex-wrap">
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
@@ -28,7 +28,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Features
                                     </Link>
@@ -36,7 +36,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Pricing
                                     </Link>
@@ -44,7 +44,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Affiliate Program
                                     </Link>
@@ -52,7 +52,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Press Kit
                                     </Link>
@@ -69,7 +69,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Account
                                     </Link>
@@ -77,7 +77,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Help
                                     </Link>
@@ -85,7 +85,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Contact Us
                                     </Link>
@@ -93,7 +93,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Customer Support
                                     </Link>
@@ -110,7 +110,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Terms &amp; Conditions
                                     </Link>
@@ -118,7 +118,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Privacy Policy
                                     </Link>
@@ -126,7 +126,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        // to="/"
+                                        to="/"
                                     >
                                         Licensing
                                     </Link>

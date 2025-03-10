@@ -6,11 +6,15 @@ import authServiceInstance from "./appwrite/authservice.js";
 import loadingGif from "./assets/loading.gif"; // Import the loading GIF
 import { motion } from "framer-motion";
 import Footer from "./components/footer/footer.jsx";
+import { Outlet } from "react-router-dom";
 function App() {
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    authServiceInstance.accountLogin({email:"kapruwanayush67@gmail.com",password:"Ayush@7310"})
+    authServiceInstance.accountLogin({
+      email: "kapruwanayush67@gmail.com",
+      password: "Ayush@7310",
+    });
     authServiceInstance
       .getCurrentUser()
       .then((userdata) => {
@@ -30,16 +34,11 @@ function App() {
   if (!loading) {
     return (
       <>
-        <Header />
-        <div className="flex flex-col min-h-screen">
-          {/* Main Content */}
-          <main className="flex-grow">
-            {/* Other page components go here */}
-          </main>
-
-          {/* Footer (scrolls normally, but stays at the bottom if no content) */}
-          <Footer />
+        <div className="w-screen">
+          <Header />
         </div>
+        <Outlet/>
+        //content here
       </>
     );
   } else {
