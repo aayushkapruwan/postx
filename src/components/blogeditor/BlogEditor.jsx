@@ -8,7 +8,6 @@ import Input from "../input&btncomponent.jsx/input";
 import Button from "../input&btncomponent.jsx/button";
 import { useForm } from "react-hook-form";
 import TextEditor from "../rich-text-editor/TextEditor";
-import conf from "../../conf/conf";
 import { useNavigate } from "react-router-dom";
 const BlogEditor = ({ post }) => {
   const {
@@ -37,8 +36,8 @@ const BlogEditor = ({ post }) => {
       if (file) {
         await postsimageobj.deletefile(post.featuredimage);
       }
-      const uploadingdata=Object.create(data);
-      delete uploadingdata.image
+      const uploadingdata = Object.create(data);
+      delete uploadingdata.image;
       const dbpost = await postsdatabaseobj.updatepost(post.$id, {
         ...uploadingdata,
         featuredimage: file ? file.$id : beforeeditimg,
@@ -53,12 +52,13 @@ const BlogEditor = ({ post }) => {
         : null;
       if (file) {
         const fileid = file.$id;
-        const uploadingdata=Object.create(data);
-        delete uploadingdata.image
-        const dbpost = await postsdatabaseobj.createpost(
-          ID.unique(),
-          { ...uploadingdata, userid: user.$id, featuredimage: fileid }
-        );
+        const uploadingdata = Object.create(data);
+        delete uploadingdata.image;
+        const dbpost = await postsdatabaseobj.createpost(ID.unique(), {
+          ...uploadingdata,
+          userid: user.$id,
+          featuredimage: fileid,
+        });
         if (dbpost) {
           navigate(`/post/${dbpost.$id}`);
         }
@@ -98,7 +98,7 @@ const BlogEditor = ({ post }) => {
             name="content"
             control={control}
             defaultValue={getValues("content")}
-            {...register("content",{required:true})}
+            {...register("content", { required: true })}
           />
           {/* Submit Button */}
           <Button
