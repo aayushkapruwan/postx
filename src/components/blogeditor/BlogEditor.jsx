@@ -1,15 +1,16 @@
 import React from "react";
 import { ID } from "appwrite";
 import Select from "../select/Select";
-import authServiceInstance from "../../appwrite/authservice";
 import postsimageobj from "../../appwrite/userpostimage";
 import postsdatabaseobj from "../../appwrite/userpostsdatabase";
 import Input from "../input&btncomponent.jsx/input";
 import Button from "../input&btncomponent.jsx/button";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import TextEditor from "../rich-text-editor/TextEditor";
 import { useNavigate } from "react-router-dom";
 const BlogEditor = ({ post }) => {
+  const user = useSelector(state=>state.authslice.userdata)
   const {
     register,
     handleSubmit,
@@ -33,38 +34,49 @@ const BlogEditor = ({ post }) => {
       const file = data.image[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
+  
+      let imageUrl = beforeeditimg; // Default to existing image
+  
       if (file) {
         await postsimageobj.deletefile(post.featuredimage);
+        imageUrl = await postsimageobj.filepreview(file.$id); // Get URL
       }
-      const uploadingdata = Object.create(data);
+  
+      const uploadingdata = { ...data };
       delete uploadingdata.image;
+  
       const dbpost = await postsdatabaseobj.updatepost(post.$id, {
         ...uploadingdata,
-        featuredimage: file ? file.$id : beforeeditimg,
+        featuredimage: imageUrl,
       });
+  
       if (dbpost) {
         navigate(`/post/${dbpost.$id}`);
       }
     } else {
-      const user = await authServiceInstance.getCurrentUser();
       const file = data.image[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
+  
       if (file) {
-        const fileid = file.$id;
-        const uploadingdata = Object.create(data);
+        const imageUrl = await postsimageobj.filepreview(file.$id); // Get URL
+        const uploadingdata = { ...data };
         delete uploadingdata.image;
+  
         const dbpost = await postsdatabaseobj.createpost(ID.unique(), {
           ...uploadingdata,
           userid: user.$id,
-          featuredimage: fileid,
+          featuredimage: imageUrl, // Save URL instead of file ID
         });
+  
         if (dbpost) {
           navigate(`/post/${dbpost.$id}`);
         }
       }
     }
   };
+  
+  
   return (
     <div className=" max-w-2xl mx-auto ">
       {/* Title Input */}

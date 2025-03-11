@@ -10,19 +10,22 @@ import store from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BlogEditor from "./components/blogeditor/BlogEditor.jsx";
 import Blogpage from "./components/blogpage/Blogpage.jsx";
+
 const router = createBrowserRouter([
   {
     path: "",
     element: <App />,
     children: [
       { path: "", element: <Home /> },
-      { path: "/signin", element: <Signin /> },
-      { path: "/signup", element: <Signup /> },
-      { path: "/postform", element: <BlogEditor /> },
-      { path: "post/:postid", element: <Blogpage /> },
+      { path: "signin", element: <Signin /> },
+      { path: "signup", element: <Signup /> },
+      { path: "postform", element: <BlogEditor /> }, // ✅ Removed incorrect nesting
+      { path: "post/:postid", element: <Blogpage /> }, // ✅ Corrected path
+      { path: "postform/post/:postid", element: <Blogpage /> }, // ✅ Corrected path
     ],
   },
 ]);
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
