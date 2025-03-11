@@ -6,15 +6,17 @@ import authServiceInstance from "./appwrite/authservice.js";
 import loadingGif from "./assets/loading.gif"; // Import the loading GIF
 import { motion } from "framer-motion";
 import Footerx from "./components/footer/footer.jsx";
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 function App() {
+  const check=useSelector(state=>state.authslice.status)
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    authServiceInstance.accountLogin({
+    check?authServiceInstance.accountLogin({
       email: "kapruwanayush67@gmail.com",
       password: "Ayush@7310",
-    });
+    }):undefined
     authServiceInstance
       .getCurrentUser()
       .then((userdata) => {
@@ -36,7 +38,7 @@ function App() {
         </div>
         <Outlet/>
         
-          {/* <Footerx /> */}
+          <Footerx />
         
 
         //content here

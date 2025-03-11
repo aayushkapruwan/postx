@@ -8,6 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../slices/authslice";
 import { useDispatch } from "react-redux";
 function Signin() {
+    const [loading,setloading]=useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, seterror] = useState("");
@@ -17,6 +18,7 @@ function Signin() {
     formState: { errors },
   } = useForm();
   async function signin(userData) {
+    setloading(true)
     seterror("");
     try {
       const sessiondata = await authServiceInstance.accountLogin(userData);
@@ -28,6 +30,9 @@ function Signin() {
     } catch (error) {
       seterror(error);
     }
+  }
+  if(loading===true){
+    return <p className="text-center text-gray-500">Loading...</p>;
   }
   return (
     <div

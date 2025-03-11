@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ID } from "appwrite";
 import Select from "../select/Select";
 import postsimageobj from "../../appwrite/userpostimage";
@@ -10,13 +10,14 @@ import { useSelector } from "react-redux";
 import TextEditor from "../rich-text-editor/TextEditor";
 import { useNavigate } from "react-router-dom";
 const BlogEditor = ({ post }) => {
-  const user = useSelector(state=>state.authslice.userdata)
+  const [loading, setloading] = useState(false);
+  const user = useSelector((state) => state.authslice.userdata);
   const {
     register,
     handleSubmit,
     control,
     getValues,
-    // formState: { errors },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       title: post?.title || "",
@@ -25,31 +26,30 @@ const BlogEditor = ({ post }) => {
       slug: post?.slug || "",
     },
   });
-
   const navigate = useNavigate();
-
   const blogSubmit = async (data) => {
+    setloading(true);
     if (post) {
       const beforeeditimg = post.featuredimage;
       const file = data.image[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-  
+
       let imageUrl = beforeeditimg; // Default to existing image
-  
+
       if (file) {
         await postsimageobj.deletefile(post.featuredimage);
         imageUrl = await postsimageobj.filepreview(file.$id); // Get URL
       }
-  
+
       const uploadingdata = { ...data };
       delete uploadingdata.image;
-  
+
       const dbpost = await postsdatabaseobj.updatepost(post.$id, {
         ...uploadingdata,
         featuredimage: imageUrl,
       });
-  
+
       if (dbpost) {
         navigate(`/post/${dbpost.$id}`);
       }
@@ -57,26 +57,27 @@ const BlogEditor = ({ post }) => {
       const file = data.image[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-  
+
       if (file) {
         const imageUrl = await postsimageobj.filepreview(file.$id); // Get URL
         const uploadingdata = { ...data };
         delete uploadingdata.image;
-  
+
         const dbpost = await postsdatabaseobj.createpost(ID.unique(), {
           ...uploadingdata,
           userid: user.$id,
           featuredimage: imageUrl, // Save URL instead of file ID
         });
-  
+
         if (dbpost) {
           navigate(`/post/${dbpost.$id}`);
         }
       }
     }
   };
-  
-  
+  if (loading === true) {
+    return <p className="text-center text-gray-500">Loading...</p>;
+  }
   return (
     <div className=" max-w-2xl mx-auto ">
       {/* Title Input */}
@@ -90,8 +91,8 @@ const BlogEditor = ({ post }) => {
               required: "title is required",
             })}
           />
+          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
-          {/* Image Upload */}
           <Input
             type="file"
             accept="image/*"
@@ -100,6 +101,7 @@ const BlogEditor = ({ post }) => {
               required: "image is required",
             })}
           />
+          {errors.image && <p className="text-red-500">{errors.image.message}</p>}
           <Select
             options={["active", "inactive"]}
             label="Status"
@@ -110,17 +112,18 @@ const BlogEditor = ({ post }) => {
             name="content"
             control={control}
             defaultValue={getValues("content")}
-            {...register("content", { required: true })}
           />
-          {/* Submit Button */}
+          
           <Button
             type="submit"
             text={post ? "Update" : "Submit"}
             bgColor={post ? "bg-green-500" : undefined}
             className=" mt-3 block mx-auto w-[40%]"
           ></Button>
+          
         </form>
       </div>
+      <div className="h-14"></div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Logo from "../logo/logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
 function Signup() {
+  const [loading,setloading]=useState(false)
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Signup() {
     formState: { errors },
   } = useForm();
   async function signup(data) {
+    setloading(true)
     try {
       const sessiondata = await authServiceInstance.createAccount(data);
       if (sessiondata) {
@@ -27,6 +29,9 @@ function Signup() {
     } catch (error) {
       setError(error.message);
     }
+  }
+  if(loading===true){
+      return <p className="text-center text-gray-500">Loading...</p>;
   }
   return (
     <div

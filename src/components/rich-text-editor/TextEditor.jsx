@@ -2,7 +2,8 @@ import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 import conf from "../../conf/conf";
-function TextEditor({ name, control, defaultValue, label }) {
+function TextEditor({ name, control, defaultValue }) {
+
   return (
     <Controller
       name={name || "content"}
@@ -10,7 +11,7 @@ function TextEditor({ name, control, defaultValue, label }) {
       render={({ field: { onChange } }) => (
         <Editor
           apiKey={conf.tiny}
-          initialValue={defaultValue}
+          // initialValue={defaultValue} yas to yaha se set hoag ya to neeche se
           init={{
             initialValue: defaultValue,
             height: 300,
