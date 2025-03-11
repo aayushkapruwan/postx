@@ -5,7 +5,7 @@ import Header from "./components/header/header.jsx";
 import authServiceInstance from "./appwrite/authservice.js";
 import loadingGif from "./assets/loading.gif"; // Import the loading GIF
 import { motion } from "framer-motion";
-import Footer from "./components/footer/footer.jsx";
+import Footerx from "./components/footer/footer.jsx";
 import { Outlet } from "react-router-dom";
 function App() {
   const [loading, setloading] = useState(true);
@@ -24,9 +24,6 @@ function App() {
           dispatch(logout());
         }
       })
-      .catch((error) => {
-        alert("network error :404", error);
-      }) //if request not sent to network by authserviceinstance
       .finally(() => {
         setloading(false);
       });
@@ -38,6 +35,10 @@ function App() {
           <Header />
         </div>
         <Outlet/>
+        
+          {/* <Footerx /> */}
+        
+
         //content here
       </>
     );

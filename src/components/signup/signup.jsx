@@ -22,7 +22,7 @@ function Signup() {
       if (sessiondata) {
         const userData = await authServiceInstance.getCurrentUser();
         dispatch(login(userData));
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       setError(error.message);
@@ -30,10 +30,11 @@ function Signup() {
   }
   return (
     <div
-      className="flex flex-col justify-center items-center  "
+      className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
       style={{ height: "calc(100vh - 8.5rem)" }}
     >
-      <div className="bg-white/80 p-6 shadow-lg rounded-lg w-96   mx-5">
+      <img src="/carto.jpg" className="hidden sm:inline-block h-80 w-80 rounded-full" alt="" />
+      <div className="bg-white/80 p-6 shadow-lg rounded-lg w-96   mx-3">
         <div className="mb-2 flex justify-center">
           <span className="flex justify-center items-center w-full  max-w-[100px]">
             <Logo width="100%" />
@@ -61,6 +62,7 @@ function Signup() {
               required: "Name cannot be Empty",
             })}
           />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
           <Input
             label="Email"
             type="email"
@@ -74,6 +76,9 @@ function Signup() {
               },
             })}
           />
+                    {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
           <Input
             label="password"
             type="password"
@@ -99,10 +104,7 @@ function Signup() {
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
+          
           {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         </form>
       </div>

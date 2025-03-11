@@ -1,6 +1,5 @@
 import { Client, Databases, Query } from "appwrite";
-import { postsimageclass } from "./userpostimage.js";
-import postsimageobj from "./userpostimage.js";
+
 import conf from "../conf/conf.js";
 export class postsdatabaseclass {
   client = new Client();
@@ -9,9 +8,9 @@ export class postsdatabaseclass {
     this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
-    this.database = new Databases(client);
+    this.database = new Databases(this.client);
   }
-  async createpost({ slug, title, content, featuredimage, status, userid }) {
+  async createpost(slug,{  title, content, featuredimage, status, userid }) {
     try {
       return await this.database.createDocument(
         conf.appwriteDatabaseId,
@@ -23,7 +22,7 @@ export class postsdatabaseclass {
       throw error;
     }
   }
-  async updatepost({ slug, title, content, featuredimage, status, userid }) {
+  async updatepost( slug,{ title, content, featuredimage, status, userid }) {
     try {
       return await this.database.updateDocument(
         conf.appwriteDatabaseId,

@@ -35,7 +35,7 @@ function Header() {
     },
     {
       name: "Addposts",
-      url: "/addposts",
+      url: "/postform",
       icon: <PlusSquare size={20} />,
       active: userstatus,
     },
@@ -46,7 +46,7 @@ function Header() {
   }
   return (
     <>
-      <div className="fixed top-5  bg-[rgb(154,62,170)]/95 mx-auto left-0 right-0 rounded-md w-[96%] lg:w-[70%] ">
+      <div className="fixed top-0 z-100 bg-[rgb(154,62,170)]/95 mx-auto left-0 right-0 rounded-b-sm shadow-purple-200   rounded-t-sm  w-[100%] ">
         <div className="h-13     flex  justify-center items-center  ">
           <div className="flex max-w-[665px] items-center justify-between md:max-w-[1024px] md:px-20items-center h-full w-full px-10 overflow-clip">
             <Link to="/">
@@ -76,6 +76,7 @@ function Header() {
                   <div
                     onClick={() => {
                       navigate(navbtn.url);
+                      setactive(false)
                     }}
                     key={ID.unique()}
                     className="w-full relative  flex justify-center items-center gap-x-6   p-4 text-center"

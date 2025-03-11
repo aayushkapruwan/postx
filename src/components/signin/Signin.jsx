@@ -9,7 +9,7 @@ import { login } from "../../slices/authslice";
 import { useDispatch } from "react-redux";
 function Signin() {
   const navigate = useNavigate();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [error, seterror] = useState("");
   const {
     register,
@@ -17,13 +17,13 @@ function Signin() {
     formState: { errors },
   } = useForm();
   async function signin(userData) {
-    seterror('')
+    seterror("");
     try {
       const sessiondata = await authServiceInstance.accountLogin(userData);
       if (sessiondata) {
-        const userData = await authService.getCurrentUser();
+        const userData = await authServiceInstance.getCurrentUser();
         dispatch(login(userData));
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       seterror(error);
@@ -31,9 +31,14 @@ function Signin() {
   }
   return (
     <div
-      className="flex justify-center items-center  "
+      className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
       style={{ height: "calc(100vh - 8.5rem)" }}
     >
+      <img
+        src="/carto.jpg"
+        className="hidden sm:inline-block h-80 w-80 rounded-full"
+        alt=""
+      />
       <div className="bg-white/80 p-6 shadow-lg rounded-lg w-96  mx-5 ">
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]">
@@ -68,6 +73,9 @@ function Signin() {
               },
             })}
           />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
           <Input
             label="password"
             type="password"
