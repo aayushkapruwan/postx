@@ -35,7 +35,7 @@ function Header() {
     },
     {
       name: "Addposts",
-      url: "/postform",
+      url: "/Addpost",
       icon: <PlusSquare size={20} />,
       active: userstatus,
     },

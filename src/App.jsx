@@ -17,6 +17,7 @@ function App() {
       email: "kapruwanayush67@gmail.com",
       password: "Ayush@7310",
     }):undefined
+    
     authServiceInstance
       .getCurrentUser()
       .then((userdata) => {

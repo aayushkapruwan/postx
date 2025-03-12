@@ -2,26 +2,30 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import Signin from "./components/signin/Signin.jsx";
-import Signup from "./components/signup/signup.jsx";
-import Home from "./components/home/Home.jsx";
+import Signin from "./webpages/signin.jsx";
+import Signup from "./webpages/signup.jsx";
+import Home from "./webpages/Home.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import BlogEditor from "./components/blogeditor/BlogEditor.jsx";
-import Blogpage from "./components/blogpage/Blogpage.jsx";
-
+import Blogpage from "./webpages/Blogpage.jsx";
+import Addpost from "./webpages/Addpost.jsx";
+import Editpost from "./webpages/Editpost.jsx";
+import AllPosts from "./webpages/Allposts.jsx";
 const router = createBrowserRouter([
   {
     path: "",
     element: <App />,
     children: [
       { path: "", element: <Home /> },
+      { path: "allposts", element: <AllPosts /> },
       { path: "signin", element: <Signin /> },
       { path: "signup", element: <Signup /> },
-      { path: "postform", element: <BlogEditor /> }, // ✅ Removed incorrect nesting
-      { path: "post/:postid", element: <Blogpage /> }, // ✅ Corrected path
-      { path: "postform/post/:postid", element: <Blogpage /> }, // ✅ Corrected path
+      { path: "Addpost", element: <Addpost /> },
+      { path: "Editpost/:postid", element: <Editpost /> },
+      { path: "post/:postid", element: <Blogpage /> },
+      { path: "Addpost/post/:postid", element: <Blogpage /> },
+      { path: "Editpost/:postid/post/:postid", element: <Blogpage /> },
     ],
   },
 ]);

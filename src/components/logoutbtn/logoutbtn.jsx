@@ -1,5 +1,5 @@
 import React from "react";
-import CircularAnimation from "../circularmotion";
+import CircularAnimation from "../circularmotion/circularmotion.jsx";
 import { LogOut } from "lucide-react";
 import authServiceInstance from "../../appwrite/authservice";
 import { logout } from "../../slices/authslice";

@@ -11,7 +11,7 @@ function TextEditor({ name, control, defaultValue }) {
       render={({ field: { onChange } }) => (
         <Editor
           apiKey={conf.tiny}
-          // initialValue={defaultValue} yas to yaha se set hoag ya to neeche se
+          initialValue={defaultValue}
           init={{
             initialValue: defaultValue,
             height: 300,
