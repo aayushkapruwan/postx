@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Logoutbtn from "../logoutbtn/logoutbtn";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Hamburger from "hamburger-react";
+import { HamIcon } from "lucide-react";
 import { ID } from "appwrite";
 import { Home, LogIn, UserPlus, FileText, PlusSquare } from "lucide-react";
 
@@ -59,7 +59,7 @@ function Header() {
                 active ? "text-white/90" : "text-black/90"
               }`}
             >
-              <Hamburger />
+              <HamIcon />{" "}
             </div>
             {/* //smallscreenham 
         //smallscreen */}
@@ -76,7 +76,7 @@ function Header() {
                   <div
                     onClick={() => {
                       navigate(navbtn.url);
-                      setactive(false)
+                      setactive(false);
                     }}
                     key={ID.unique()}
                     className="w-full relative  flex justify-center items-center gap-x-6   p-4 text-center"
