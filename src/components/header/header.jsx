@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Logoutbtn from "../logoutbtn/logoutbtn";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { HamIcon } from "lucide-react";
+import { Menu } from "lucide-react";
 import { ID } from "appwrite";
 import { Home, LogIn, UserPlus, FileText, PlusSquare } from "lucide-react";
 
@@ -59,7 +59,7 @@ function Header() {
                 active ? "text-white/90" : "text-black/90"
               }`}
             >
-              <HamIcon />{" "}
+              <Menu />{" "}
             </div>
             {/* //smallscreenham 
         //smallscreen */}
