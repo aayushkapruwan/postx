@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import Slideshow from "../components/animatedcarousal/animatedcarousal.jsx"
 function Home() {
   const [userdata, setUserdata] = useState(null); // Set initial state to null
   const data = useSelector((state) => state.authslice.userdata);
@@ -12,13 +12,13 @@ function Home() {
   if (!userdata || !userdata.email) {
     return (
       <div className="flex justify-center items-center h-[calc(100vh-6.75rem)]">
-        <div className="text-center p-6 bg-amber-50 shadow-lg rounded-2xl">
+        <div className="text-center  bg-none shadow-lg ">
           <img
             src="/loading.gif"
             alt="Duck"
-            className="rounded-2xl w-full h-52 mx-auto mb-4"
+            className="rounded-full w-52 h-52 mx-auto mb-4  shadow-[0px_0px_30px_10px_rgba(255,255,255,0.4)]  "
           />
-          <h2 className="text-xl font-semibold text-gray-800">
+          <h2 className="text-xl font-semibold text-white">
             Please Login To Browse
           </h2>
         </div>
@@ -27,17 +27,10 @@ function Home() {
   }
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-6.75rem)]">
-      <div className="text-center p-6 bg-amber-50 shadow-lg rounded-2xl">
-        <img
-          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDNrbmYwaDgzNTYzbm91cG02dThrN2N4cnBkYXZhbGIxZjEycWFueSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/giphy.gif"
-          alt="Duck"
-          className="rounded-2xl w-full h-52 mx-auto mb-4"
-        />
-        <h2 className="text-xl font-semibold text-gray-800">
-          {`Welcome ${userdata.email}`}
-        </h2>
-      </div>
+    <div className="flex flex-col justify-center items-center h-[calc(100vh-6.75rem)]">
+      <h1 className="text-purple-300 font-extrabold font-serif text-4xl mb-10"> {`welcome to our page, ${userdata.email}`}</h1>
+            <Slideshow/>
+
     </div>
   );
 }
