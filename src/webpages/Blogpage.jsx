@@ -27,9 +27,12 @@ function Blogpage() {
   const [delload, setdelload] = useState(false);
   async function deletepost() {
     setdelload(true);
-    await postsimageobj.deletefile(pst.featuredimage)
-    await postsdatabaseobj.deletepost(pst.$id);
-    navigate("/allposts");
+    const data=pst.featuredimage;
+    await postsdatabaseobj.deletepost(pst.$id).then(()=>{
+      postsimageobj.deletefile(data)
+      navigate("/allposts");
+    })
+    
   }
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (!pst) return <p className="text-center text-red-500">Post not found.</p>;

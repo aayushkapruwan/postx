@@ -24,8 +24,6 @@ const router = createBrowserRouter([
       { path: "Addpost", element: <Addpost /> },
       { path: "Editpost/:postid", element: <Editpost /> },
       { path: "post/:postid", element: <Blogpage /> },
-      { path: "Addpost/post/:postid", element: <Blogpage /> },
-      { path: "Editpost/:postid/post/:postid", element: <Blogpage /> },
     ],
   },
 ]);
