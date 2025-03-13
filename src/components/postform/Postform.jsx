@@ -49,12 +49,11 @@ const Postform = ({ post }) => {
     setLoading(true);
 
     if (post) {
-      const beforeEditImage = post.featuredimage;
       const file = data.image?.[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
 
-      let imageUrl = beforeEditImage; // Default to existing image
+      let imageUrl = post.featuredimage; // Default to existing image
 
       if (file) {
         await postsimageobj.deletefile(post.featuredimage);

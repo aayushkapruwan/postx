@@ -25,17 +25,19 @@ function Blogpage() {
     fetchPost();
   }, [postid]);
   const [delload, setdelload] = useState(false);
+
   async function deletepost() {
     setdelload(true);
     const data = pst.featuredimage;
     await postsdatabaseobj.deletepost(pst.$id).then(() => {
+      setPst(false);
       postsimageobj.deletefile(data);
       navigate("/allposts");
     });
   }
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+
   if (!pst) return <p className="text-center text-red-500">Post not found.</p>;
-  console.log(pst.featuredimage);
 
   return (
     <div className=" max-w-4xl mx-auto max-h-xl">

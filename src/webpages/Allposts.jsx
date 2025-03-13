@@ -9,9 +9,9 @@ function AllPosts() {
   useEffect(() => {
     async function getx() {
       const postsx = await postsdatabaseobj.getposts();
-      if (postsx) {
+      setPosts(postsx.documents);
+      if (postsx.documents) {
         setloading(false);
-        setPosts(postsx.documents);
       }
     }
     getx();
@@ -25,7 +25,11 @@ function AllPosts() {
         <div className="flex justify-center gap-2 items-center lg:justify-normal  flex-col flex-wrap md:flex-row px-2 ">
           {posts.map((post) => (
             <div key={post.$id} className="bg-purple-300 rounded-2xl   ">
-              <Bloglinkcard $id={post.$id} title={post.title} featuredimage={post.featuredimage} />
+              <Bloglinkcard
+                $id={post.$id}
+                title={post.title}
+                featuredimage={post.featuredimage}
+              />
             </div>
           ))}
         </div>
