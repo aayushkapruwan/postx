@@ -28,7 +28,7 @@ function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center h-[calc(100vh-6.75rem)]">
-      <h1 className="text-purple-300 font-extrabold font-serif text-4xl mb-10"> {`welcome to our page, ${userdata.email}`}</h1>
+      <h1 className="text-center text-purple-300 font-extrabold font-serif text-2xl md:text-4xl mb-10"> {`welcome to our page, ${userdata.email}`}</h1>
             <Slideshow/>
 
     </div>
