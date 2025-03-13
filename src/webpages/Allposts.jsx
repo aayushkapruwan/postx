@@ -24,7 +24,7 @@ function AllPosts() {
       <div className="w-full mx-auto flex items-center  md:block justify-center">
         <div className="flex justify-center items-centerlg:justify-normal  flex-col flex-wrap md:flex-row px-2 ">
           {posts.map((post) => (
-            <div key={post.$id} className="bg-purple-300 rounded-2xl m-2 py-1 px-2 w-[290px]  h-[278px]">
+            <div key={post.$id} className="bg-purple-300 rounded-2xl   ">
               <Bloglinkcard {...post} />
             </div>
           ))}
