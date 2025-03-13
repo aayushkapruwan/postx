@@ -27,12 +27,11 @@ function Blogpage() {
   const [delload, setdelload] = useState(false);
   async function deletepost() {
     setdelload(true);
-    const data=pst.featuredimage;
-    await postsdatabaseobj.deletepost(pst.$id).then(()=>{
-      postsimageobj.deletefile(data)
+    const data = pst.featuredimage;
+    await postsdatabaseobj.deletepost(pst.$id).then(() => {
+      postsimageobj.deletefile(data);
       navigate("/allposts");
-    })
-    
+    });
   }
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (!pst) return <p className="text-center text-red-500">Post not found.</p>;
@@ -41,20 +40,21 @@ function Blogpage() {
   return (
     <div className=" max-w-4xl mx-auto max-h-xl">
       <div className="  mx-10 p-6 h-1/3 bg-purple-300 shadow-lg rounded-2xl border border-gray-200">
-        {pst.userid === userdata.$id? <div className="mb-3 flex gap-5">
-          {pst.userid === userdata.$id && !delload ? (
-            <div className="w-1/5" onClick={deletepost}>
-              <Button
-                type="text"
-                text="delete"
-                bgColor="bg-red-500"
-                className=" rounded-3xl"
-              />
-            </div>
-          ) : (
-            <p className="text-center text-gray-500">Loading...</p>
-          )}
-          {pst.userid === userdata.$id && (
+        {pst.userid === userdata.$id ? (
+          <div className="mb-3 flex gap-5">
+            {!delload ? (
+              <div className="w-1/5" onClick={deletepost}>
+                <Button
+                  type="text"
+                  text="delete"
+                  bgColor="bg-red-500"
+                  className=" rounded-3xl"
+                />
+              </div>
+            ) : (
+              <p className="text-center text-gray-500">Loading...</p>
+            )}
+
             <div
               className="w-1/5"
               onClick={() => {
@@ -63,9 +63,9 @@ function Blogpage() {
             >
               <Button type="text" text="edit" className=" rounded-3xl" />
             </div>
-          )}
-        </div>:undefined}
-       
+          </div>
+        ) : undefined}
+
         {pst.featuredimage && (
           <img
             src={pst.featuredimage} // Now it's a direct image URL
