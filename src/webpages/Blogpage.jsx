@@ -28,10 +28,12 @@ function Blogpage() {
 
   async function deletepost() {
     setdelload(true);
-    const data = pst.featuredimage;
+    const parts = pst.featuredimage.split("/");
+    const fileId = parts[parts.length - 2];
+    await postsimageobj.deletefile(fileId);
+
     await postsdatabaseobj.deletepost(pst.$id).then(() => {
       setPst(false);
-      postsimageobj.deletefile(data);
       navigate("/allposts");
     });
   }
