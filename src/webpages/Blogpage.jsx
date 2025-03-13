@@ -4,6 +4,7 @@ import postsdatabaseobj from "../appwrite/userpostsdatabase";
 import HtmlParser from "react-html-parser";
 import { useSelector } from "react-redux";
 import Button from "../components/input&btncomponent.jsx/button";
+import postsimageobj from "../appwrite/userpostimage";
 function Blogpage() {
   const userdata = useSelector((state) => state.authslice.userdata);
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Blogpage() {
   const [delload, setdelload] = useState(false);
   async function deletepost() {
     setdelload(true);
+    await postsimageobj.deletefile(pst.featuredimage)
     await postsdatabaseobj.deletepost(pst.$id);
     navigate("/allposts");
   }
@@ -34,7 +36,7 @@ function Blogpage() {
   console.log(pst.featuredimage);
 
   return (
-    <div className=" max-w-3xl mx-auto max-h-xl">
+    <div className=" max-w-4xl mx-auto max-h-xl">
       <div className="  mx-10 p-6 h-1/3 bg-purple-300 shadow-lg rounded-2xl border border-gray-200">
         {pst.userid === userdata.$id? <div className="mb-3 flex gap-5">
           {pst.userid === userdata.$id && !delload ? (
@@ -65,7 +67,7 @@ function Blogpage() {
           <img
             src={pst.featuredimage} // Now it's a direct image URL
             alt={pst.title}
-            className=" w-full h-1/3 aspect-square  object-center rounded-xl mb-4"
+            className=" w-full h-1/3 sm:h-96 aspect-square  object-center rounded-xl mb-4"
           />
         )}
 

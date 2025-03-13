@@ -106,7 +106,7 @@ const Postform = ({ post }) => {
           <Input
             type="text"
             placeholder="Enter blog title"
-            className="w-full p-2 border bg-white rounded mb-4"
+            classNameInput="w-full p-2 border bg-none rounded mb-4"
             {...register("title", {
               required: "Title is required",
             })}

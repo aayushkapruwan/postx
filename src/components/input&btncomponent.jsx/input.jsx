@@ -5,6 +5,7 @@ const Input = forwardRef(function Input(
     label,
     type = "text",
     classNameInput = "",
+    classNameButton="",
     ...propsinput
   },
   ref
