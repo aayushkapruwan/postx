@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Container from "../components/container/container.jsx";
 import Bloglinkcard from "../components/bloglinkcard/Bloglinkcard.jsx";
 import postsdatabaseobj from "../appwrite/userpostsdatabase";
+import { useSelector } from "react-redux";
 function AllPosts() {
+  const st = useSelector((state) => state.authslice.status);
   const [posts, setPosts] = useState([]);
   const [loading, setloading] = useState(true);
-
   useEffect(() => {
     async function getx() {
       const postsx = await postsdatabaseobj.getposts();
@@ -17,8 +17,13 @@ function AllPosts() {
     getx();
   }, []);
   if (loading) {
+    if (!st) {
+      return <p className="text-red-700 text-center">please login to explore</p>
+    }
     return <p className="text-center text-gray-500">Loading...</p>;
+
   }
+ 
   return (
     <>
       <div className="w-full mx-auto flex items-center  md:block justify-center">

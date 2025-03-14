@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react";
 import postsdatabaseobj from "../appwrite/userpostsdatabase.js";
 
 function Editpost() {
+  const st = useSelector((state) => state.authslice.status);
+  if (!st) {
+    return <p className="text-red-700 text-center">please login to explore</p>
+  }
   const [pstdata, setpstdata] = useState(null);
   const { postid } = useParams();
 

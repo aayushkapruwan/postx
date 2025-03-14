@@ -6,11 +6,15 @@ import { useSelector } from "react-redux";
 import Button from "../components/input&btncomponent.jsx/button";
 import postsimageobj from "../appwrite/userpostimage";
 function Blogpage() {
+    const st = useSelector((state) => state.authslice.status);
   const userdata = useSelector((state) => state.authslice.userdata);
   const navigate = useNavigate();
   const { postid } = useParams();
   const [pst, setPst] = useState(""); // Store post data
   const [loading, setLoading] = useState(true); // Handle loading state
+  if (!st) {
+    return <p className="text-red-700 text-center">please login to explore</p>
+  }
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -37,6 +41,7 @@ function Blogpage() {
       navigate("/allposts");
     });
   }
+
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
   if (!pst) return <p className="text-center text-red-500">Post not found.</p>;
