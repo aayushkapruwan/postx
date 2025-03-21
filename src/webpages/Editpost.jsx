@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Postform from "../components/postform/Postform.jsx";
 import React, { useEffect, useState } from "react";
 import postsdatabaseobj from "../appwrite/userpostsdatabase.js";
-
+import { useSelector } from "react-redux";
 function Editpost() {
   const st = useSelector((state) => state.authslice.status);
   if (!st) {
