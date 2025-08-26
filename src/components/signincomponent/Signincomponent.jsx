@@ -35,7 +35,7 @@ function Signincomponent() {
 
  
   return (
-    loading?<LoadingIcon/>:
+    loading?<LoadingIcon height="h-[calc(100vh-7.75rem)]"/>:
     <div
       className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
       style={{ height: "calc(100vh - 8.5rem)" }}

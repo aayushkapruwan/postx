@@ -15,9 +15,9 @@ const colors = [
   "#FF0000", // red
   "#8B0000"  // dark red
 ];
-const LoadingIcon = () => {
+const LoadingIcon = ({height}) => {
  return (
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-6.75rem)] w-screen bg-black">
+    <div className={`flex flex-col items-center justify-center ${height} w-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black`}>
       {/* Loader Circles */}
       <div className="flex gap-1">
         {colors.map((color, index) => (

@@ -39,7 +39,7 @@ function App() {
     <>
       
       {loading ? (
-        <LoadingIcon />
+        <LoadingIcon height="h-screen" />
       ) : (
         <>
     <div className="flex flex-col min-h-screen w-full  overflow-hidden">
@@ -47,7 +47,7 @@ function App() {
       <Header />
 
       {/* Main Content */}
-      <main className="flex-grow overflow-y-auto overflow-x-hidden pt-2 pb-7">
+      <main className="flex-grow overflow-y-auto overflow-x-hidden ">
     <Outlet/>
       </main>
 
