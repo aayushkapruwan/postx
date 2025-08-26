@@ -46,7 +46,7 @@ function Header() {
   }
   return (
     <>
-      <div className="fixed top-0 z-100 bg-[rgb(154,62,170)]/95 mx-auto left-0 right-0 rounded-b-sm shadow-purple-200   rounded-t-sm  w-[100%] ">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[rgb(154,62,170)]/95 shadow-md w-full h-14">
         <div className="h-13     flex  justify-center items-center  ">
           <div className="flex max-w-[665px] items-center justify-between md:max-w-[1024px] md:px-20items-center h-full w-full px-10 overflow-clip">
             <Link to="/">

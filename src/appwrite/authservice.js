@@ -7,8 +7,8 @@ export class AuthService {
 
   constructor() {
     this.client
-      .setEndpoint(conf.appwriteUrl) 
-      .setProject(conf.appwriteProjectId); 
+      .setEndpoint(conf.appwriteUrl)
+      .setProject(conf.appwriteProjectId);
 
     this.account = new Account(this.client);
   }
@@ -36,7 +36,7 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      throw`${error}: Error in Login `;
+      throw `${error}: Error in Login `;
     }
   }
 
@@ -45,7 +45,6 @@ export class AuthService {
       return await this.account.get();
     } catch (error) {
       console.log(error);
-      
     }
   }
 
@@ -60,6 +59,3 @@ export class AuthService {
 
 const authServiceInstance = new AuthService();
 export default authServiceInstance;
-
-
-

@@ -4,6 +4,7 @@ import Button from "../input&btncomponent.jsx/button";
 import authServiceInstance from "../../appwrite/authservice";
 import { useForm } from "react-hook-form";
 import Logo from "../logo/logo";
+import LoadingIcon from "../loadingcomponent/loadingcomponent";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../slices/authslice";
 import { useDispatch } from "react-redux";
@@ -31,10 +32,10 @@ function Signincomponent() {
       seterror(error);
     }
   }
-  if(loading===true){
-    return <p className="text-center text-gray-500">Loading...</p>;
-  }
+
+ 
   return (
+    loading?<LoadingIcon/>:
     <div
       className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
       style={{ height: "calc(100vh - 8.5rem)" }}

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import TextEditor from "../rich-text-editor/TextEditor";
 import { useNavigate, useParams } from "react-router-dom";
+import { ImageIcon, X } from "lucide-react";
 
 const Postform = ({ post }) => {
   const { postid } = useParams();
@@ -33,8 +34,6 @@ const Postform = ({ post }) => {
 
   const user = useSelector((state) => state.authslice.userdata);
   const navigate = useNavigate();
-
-  // Watch for file input change
   const imageFile = watch("image");
 
   useEffect(() => {
@@ -52,8 +51,9 @@ const Postform = ({ post }) => {
       const file = data.image?.[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-
-      let imageUrl = post.featuredimage; // Default to existing image
+        console.log(file);
+        
+      let imageUrl = post.featuredimage;
 
       if (file) {
         await postsimageobj.deletefile(post.featuredimage);
@@ -75,9 +75,12 @@ const Postform = ({ post }) => {
       const file = data.image?.[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-
+        console.log(file);
+        
       if (file) {
         const imageUrl = await postsimageobj.filepreview(file.$id);
+        console.log(imageUrl);
+        
         const uploadingData = { ...data };
         delete uploadingData.image;
 
@@ -86,12 +89,14 @@ const Postform = ({ post }) => {
           userid: user.$id,
           featuredimage: imageUrl,
         });
+console.log(dbPost);
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
       }
     }
+    setLoading(false);
   };
 
   if (loading) {
@@ -99,65 +104,111 @@ const Postform = ({ post }) => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="p-5 rounded-2xl bg-purple-200 mx-10">
+    <div className="flex justify-center items-center min-h-[calc(100vh-120px)] mb-10">
+      <div className="w-[90%] md:w-[80%] lg:w-[70%] bg-white rounded-2xl shadow-md p-6">
         <form onSubmit={handleSubmit(blogSubmit)}>
-          <Input
-            type="text"
-            placeholder="Enter blog title"
-            classNameInput="w-full p-2 border bg-none rounded mb-4"
-            {...register("title", {
-              required: "Title is required",
-            })}
-          />
-          {errors.title && (
-            <p className="text-red-500">{errors.title.message}</p>
-          )}
+          {/* Title + Status */}
+          <div className="flex flex-col md:flex-row md:items-center md:gap-6 mb-5">
+            {/* Title */}
+            <div className="flex-1">
+              <label className="block mb-1 text-gray-700 text-sm font-semibold">
+                Title
+              </label>
+              <Input
+                type="text"
+                placeholder="Enter blog title"
+                classNameInput="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                {...register("title", { required: "Title is required" })}
+              />
+              {errors.title && (
+                <p className="text-red-500 mt-1">{errors.title.message}</p>
+              )}
+            </div>
 
-          <Input
-            type="file"
-            accept="image/*"
-            classNameInput="mb-4"
-            {...register("image", {
-              required: !post ? "Image is required" : false,
-            })}
-          />
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              className="mt-2 mb-4 w-full  h-40 object-cover rounded-lg"
+            {/* Status */}
+            <div className="w-full md:w-40 mt-3 md:mt-0">
+              <label className="block mb-1 text-gray-700 text-sm font-semibold">
+                Status
+              </label>
+              <Select
+                options={["active", "inactive"]}
+                className="w-full border border-gray-300 rounded-lg p-2"
+                {...register("status", { required: true })}
+              />
+            </div>
+          </div>
+
+          {/* Image + Editor */}
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Image Upload */}
+            <div className="w-full lg:w-1/3 flex flex-col">
+              <label className="block mb-1 text-gray-700 text-sm font-semibold">
+                Cover Image
+              </label>
+              <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 relative">
+                {preview ? (
+                  <div className="relative w-full">
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="w-full h-48 object-cover rounded-md shadow-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setPreview(null)}
+                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center gap-2 cursor-pointer w-full">
+                    <ImageIcon className="w-8 h-8 text-purple-600" />
+                    <span className="text-gray-600 text-sm">Click to upload</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      {...register("image", {
+                        required: !post ? "Image is required" : false,
+                      })}
+                    />
+                  </label>
+                )}
+              </div>
+              {errors.image && (
+                <p className="text-red-500 mt-1">{errors.image.message}</p>
+              )}
+            </div>
+
+            {/* Editor */}
+            <div className="w-full lg:w-2/3 flex flex-col">
+              <label className="block mb-1 text-gray-700 text-sm font-semibold">
+                Content
+              </label>
+              <TextEditor
+                name="content"
+                control={control}
+                rules={{ required: "Content is required" }}
+                defaultValue={getValues("content")}
+              />
+              {errors.content && (
+                <p className="text-red-500 mt-1">{errors.content.message}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-6 flex justify-end">
+            <Button
+              type="submit"
+              text={post ? "Update" : "Submit"}
+              bgColor={post ? "bg-green-500" : "bg-purple-600"}
+              className="py-2 px-6 rounded-lg hover:bg-purple-700 transition-all duration-300"
             />
-          )}
-          {errors.image && (
-            <p className="text-red-500">{errors.image.message}</p>
-          )}
-
-          <Select
-            options={["active", "inactive"]}
-            label="Status"
-            className="mb-4"
-            {...register("status", { required: true })}
-          />
-          <TextEditor
-            name="content"
-            control={control}
-            rules={{ required: "Content is required" }}
-            defaultValue={getValues("content")}
-          />
-          {errors.content && (
-            <p className="text-red-500">{errors.content.message}</p>
-          )}
-
-          <Button
-            type="submit"
-            text={post ? "Update" : "Submit"}
-            bgColor={post ? "bg-green-500" : undefined}
-            className="mt-3 block mx-auto w-[40%]"
-          />
+          </div>
         </form>
       </div>
-      <div className="h-14"></div>
     </div>
   );
 };

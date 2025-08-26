@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Logo from "../logo/logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import LoadingIcon from "../loadingcomponent/loadingcomponent";
 function Signupcomponent() {
   const [loading,setloading]=useState(false)
   const [error, setError] = useState("");
@@ -30,10 +31,9 @@ function Signupcomponent() {
       setError(error.message);
     }
   }
-  if(loading===true){
-      return <p className="text-center text-gray-500">Loading...</p>;
-  }
+
   return (
+    loading?<LoadingIcon/>:
     <div
       className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
       style={{ height: "calc(100vh - 8.5rem)" }}
