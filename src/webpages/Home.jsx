@@ -11,64 +11,70 @@ function Home() {
     setUserdata(data);
   }, [data]);
 
-  if (!userdata || !userdata.email) {
-    return (
-      <div className="flex justify-center items-center h-[100vh-7rem] overflow-hidden">
-        <div className="flex flex-col items-center text-center bg-white/10 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 animate-fade-in max-w-lg w-full">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-full shadow-[0_0_30px_8px_rgba(255,255,255,0.2)] mb-6">
-            <BookOpen className="w-16 h-16 text-white animate-bounce" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
-            Please Login To Browse
-          </h2>
-          <p className="text-gray-300 text-lg mt-3">
-            Discover amazing blogs, connect with people, and share your stories.
-          </p>
-          <Link
-            to="/login"
-            className="mt-6 px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full shadow-lg hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] transition-transform duration-300 ease-in-out"
-          >
-            Login Now
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
+if (!userdata || !userdata.email) {
   return (
-    <div className="flex flex-col items-center h-screen overflow-hidden">
-      <h1 className="text-center text-purple-300 font-extrabold font-serif text-2xl md:text-4xl mt-10 mb-10 animate-fade-in px-4">
-        {`Welcome, ${userdata.email}!`}
-      </h1>
-
-      {/* Action Cards */}
-      <div className="flex justify-center flex-1 w-full overflow-hidden">
-        <div className="flex flex-wrap justify-center gap-6 max-w-6xl w-full px-4 overflow-hidden">
-          <Link
-            to="/allposts"
-            className="bg-white/10 backdrop-blur-md hover:bg-white/20 transition p-6 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:-translate-y-1 hover:scale-105 duration-300 min-w-[250px] flex-1"
-          >
-            <BookOpen className="w-12 h-12 text-purple-300 mb-4" />
-            <h2 className="text-xl font-bold text-purple-100 mb-2">Browse Blogs</h2>
-            <p className="text-gray-500 text-sm sm:text-base">
-              Explore and read amazing content from the community.
-            </p>
-          </Link>
-
-          <Link
-            to="/addpost"
-            className="bg-white/10 backdrop-blur-md hover:bg-white/20 transition p-6 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:-translate-y-1 hover:scale-105 duration-300 min-w-[250px] flex-1"
-          >
-            <BookOpen className="w-12 h-12 text-pink-300 mb-4" />
-            <h2 className="text-xl font-bold text-pink-100 mb-2">Create Blog</h2>
-            <p className="text-gray-500 text-sm sm:text-base">
-              Share your knowledge and stories with the community.
-            </p>
-          </Link>
+    <div className="flex justify-center   items-center h-[100vh-6rem] w-full overflow-hidden">
+      <div className="flex flex-col items-center text-center 
+                      bg-white/10 backdrop-blur-xl p-8 rounded-2xl 
+                      shadow-xl border border-white/20 animate-fade-in max-w-md w-full">
+        <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-full 
+                        shadow-[0_0_30px_8px_rgba(255,255,255,0.2)] mb-6">
+          <BookOpen size={64} stroke="white" className="animate-bounce" />
         </div>
+        <h2 className="text-3xl md:text-4xl font-extrabold 
+                        bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
+          Please Login To Browse
+        </h2>
+        <p className="text-gray-300 text-lg mt-3">
+          Discover amazing blogs, connect with people, and share your stories.
+        </p>
+        <Link
+          to="/signin"
+          className="mt-6 px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white 
+                     rounded-full shadow-lg hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] 
+                     transition-transform duration-300 ease-in-out"
+        >
+          Login Now
+        </Link>
       </div>
     </div>
   );
 }
 
-export default Home;  
+
+  return (
+    <div className="flex flex-col justify-center items-center 
+                    h-screen md:h-screen sm:h-[calc(100vh-6rem)] w-full overflow-hidden">
+      <h1 className="text-center text-purple-300 font-extrabold font-serif text-2xl md:text-4xl mb-10 px-4">
+        {`Welcome, ${userdata.email}!`}
+      </h1>
+
+      {/* Action Cards */}
+      <div className="flex flex-wrap justify-center gap-6 max-w-6xl px-4">
+        <Link
+          to="/allposts"
+          className="bg-white/10 backdrop-blur-md hover:bg-white/20 transition p-6 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:-translate-y-1 hover:scale-105 duration-300 min-w-[250px] flex-1"
+        >
+          <BookOpen className="w-12 h-12 text-purple-300 mb-4" />
+          <h2 className="text-xl font-bold text-purple-100 mb-2">Browse Blogs</h2>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Explore and read amazing content from the community.
+          </p>
+        </Link>
+
+        <Link
+          to="/addpost"
+          className="bg-white/10 backdrop-blur-md hover:bg-white/20 transition p-6 rounded-3xl shadow-lg flex flex-col items-center text-center transform hover:-translate-y-1 hover:scale-105 duration-300 min-w-[250px] flex-1"
+        >
+          <BookOpen className="w-12 h-12 text-pink-300 mb-4" />
+          <h2 className="text-xl font-bold text-pink-100 mb-2">Create Blog</h2>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Share your knowledge and stories with the community.
+          </p>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
