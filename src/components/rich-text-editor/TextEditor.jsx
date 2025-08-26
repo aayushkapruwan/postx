@@ -6,10 +6,12 @@ function TextEditor({ name, control, defaultValue }) {
 
   return (
     <Controller
+    
       name={name || "content"}
       control={control}
       render={({ field: { onChange } }) => (
         <Editor
+        
           apiKey='pvho87fppfjr7b56ihkt0tsjexs45cquwduv8jou3pvqsbww'
           initialValue={defaultValue}
           init={{
