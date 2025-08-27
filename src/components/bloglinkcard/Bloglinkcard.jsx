@@ -3,14 +3,8 @@ import { useMemo, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function Bloglinkcard({ $id, title, featuredimage, createdAt, createdBy }) {
-  const [userdata, setUserdata] = useState(null);
-  const data = useSelector((state) => state.authslice.userdata);
-  console.log(data);
 
-  // Sync local state with Redux data
-  useEffect(() => {
-    setUserdata(data);
-  }, [data]);
+
 
   // Convert createdAt to a "time ago" format
   const timeAgo = useMemo(() => {
@@ -58,7 +52,7 @@ function Bloglinkcard({ $id, title, featuredimage, createdAt, createdBy }) {
             <p className="text-[13px] truncate max-w-[70%]">
               posted by{" "}
               <span className="font-semibold text-gray-900">
-                {createdBy || userdata?.email || "Anonymous"}
+                {createdBy  || "Anonymous"}
               </span>
             </p>
             <div className="flex items-center text-gray-700">

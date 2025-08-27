@@ -45,6 +45,7 @@ function AllPosts() {
               title={post.title}
               featuredimage={post.featuredimage}
               createdAt={post.$createdAt}
+              createdBy={post.createdBy || "Anonymous"}
             />
           ))}
         </div>

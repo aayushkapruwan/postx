@@ -12,6 +12,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ImageIcon, X } from "lucide-react";
 
 const Postform = ({ post }) => {
+  const [userdata, setUserdata] = useState(null);
+  const data = useSelector((state) => state.authslice.userdata);
+  console.log(data);
+
+  // Sync local state with Redux data
+  useEffect(() => {
+    setUserdata(data);
+    console.log(userdata);
+    
+  }, [data]);
   const { postid } = useParams();
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(post?.featuredimage || null);
@@ -51,8 +61,8 @@ const Postform = ({ post }) => {
       const file = data.image?.[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-        console.log(file);
-        
+      console.log(file);
+
       let imageUrl = post.featuredimage;
 
       if (file) {
@@ -75,12 +85,12 @@ const Postform = ({ post }) => {
       const file = data.image?.[0]
         ? await postsimageobj.uploadfile(data.image[0])
         : null;
-        console.log(file);
-        
+      console.log(file);
+
       if (file) {
         const imageUrl = await postsimageobj.filepreview(file.$id);
         console.log(imageUrl);
-        
+
         const uploadingData = { ...data };
         delete uploadingData.image;
 
@@ -88,8 +98,9 @@ const Postform = ({ post }) => {
           ...uploadingData,
           userid: user.$id,
           featuredimage: imageUrl,
+          createdBy: user?.email,
         });
-console.log(dbPost);
+        console.log(dbPost);
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
@@ -164,7 +175,9 @@ console.log(dbPost);
                 ) : (
                   <label className="flex flex-col items-center gap-2 cursor-pointer w-full">
                     <ImageIcon className="w-8 h-8 text-purple-600" />
-                    <span className="text-gray-600 text-sm">Click to upload</span>
+                    <span className="text-gray-600 text-sm">
+                      Click to upload
+                    </span>
                     <input
                       type="file"
                       accept="image/*"

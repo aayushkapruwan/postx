@@ -7,15 +7,15 @@ import Button from "../components/input&btncomponent.jsx/button";
 import postsimageobj from "../appwrite/userpostimage";
 
 function Blogpage() {
+    const [userdata, setUserdata] = useState(null);
+    const data = useSelector((state) => state.authslice.userdata);
+    console.log(data);
+  
+    // Sync local state with Redux data
+    useEffect(() => {
+      setUserdata(data);
+    }, [data]);
   const st = useSelector((state) => state.authslice.status);
-  const [userdata, setUserdata] = useState(null);
-  const data = useSelector((state) => state.authslice.userdata);
-  console.log(data);
-
-  // Sync local state with Redux data
-  useEffect(() => {
-    setUserdata(data);
-  }, [data]);
   const navigate = useNavigate();
   const { postid } = useParams();
   const [pst, setPst] = useState("");
@@ -35,6 +35,8 @@ function Blogpage() {
       try {
         const postData = await postsdatabaseobj.getpost(postid);
         setPst(postData);
+        console.log(postData);
+        
       } catch (error) {
         console.error("Error fetching post:", error);
       } finally {
@@ -121,11 +123,11 @@ function Blogpage() {
 
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg">
-              {userdata.email?.charAt(0)?.toUpperCase() || "A"}
+              {pst.createdBy?.charAt(0)?.toUpperCase() || "A"}
             </div>
             <div>
               <p className="text-gray-800 font-semibold text-lg">
-                {userdata.email || "Anonymous"}
+                {pst.createdBy || "Anonymous"}
               </p>
               <p className="text-gray-500 text-sm">{timeAgo}</p>
             </div>

@@ -10,13 +10,13 @@ export class postsdatabaseclass {
       .setProject(conf.appwriteProjectId);
     this.database = new Databases(this.client);
   }
-  async createpost(slug,{  title, content, featuredimage, status, userid }) {
+  async createpost(slug,{  title, content, featuredimage, status, userid ,createdBy}) {
     try {
       return await this.database.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-        { title, content, featuredimage, status, userid }
+        { title, content, featuredimage, status, userid,createdBy }
       );
     } catch (error) {
       throw error;
