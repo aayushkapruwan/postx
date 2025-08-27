@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import authServiceInstance from "../../appwrite/authservice.js";
 import { login } from "../../slices/authslice.js";
 import Input from "../input&btncomponent.jsx/input.jsx";
@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 import Logo from "../logo/logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingIcon from "../loadingcomponent/loadingcomponent";
+
 function Signupcomponent() {
-  const [loading,setloading]=useState(false)
+  const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,30 +19,43 @@ function Signupcomponent() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   async function signup(data) {
-    setloading(true)
+    setloading(true);
+    setError("");
     try {
+      console.log("Form Data:", data);
       const sessiondata = await authServiceInstance.createAccount(data);
+      console.log("Session Data:", sessiondata);
+
       if (sessiondata) {
         const userData = await authServiceInstance.getCurrentUser();
         dispatch(login(userData));
         navigate("/");
       }
     } catch (error) {
-      setError(error.message);
+      console.error("Signup Error:", error);
+      setError(error?.message || "Signup failed. Please try again!");
+    } finally {
+      setloading(false);
     }
   }
 
-  return (
-    loading?<LoadingIcon/>:
+  return loading ? (
+    <LoadingIcon height="h-[calc(100vh-7.75rem)]"/>
+  ) : (
     <div
-      className="flex justify-center md:justify-between md:w-3xl mx-auto items-center  "
+      className="flex justify-center md:justify-between md:w-3xl mx-auto items-center"
       style={{ height: "calc(100vh - 8.5rem)" }}
     >
-      <img src="/carto.jpg" className="hidden sm:inline-block h-80 w-80 rounded-full" alt="" />
-      <div className="bg-white/80 p-6 shadow-lg rounded-lg w-96   mx-3">
+      <img
+        src="/carto.jpg"
+        className="hidden sm:inline-block h-80 w-80 rounded-full"
+        alt=""
+      />
+      <div className="bg-white/80 p-6 shadow-lg rounded-lg w-96 mx-3">
         <div className="mb-2 flex justify-center">
-          <span className="flex justify-center items-center w-full  max-w-[100px]">
+          <span className="flex justify-center items-center w-full max-w-[100px]">
             <Logo width="100%" />
           </span>
         </div>
@@ -62,17 +76,14 @@ function Signupcomponent() {
             label="Name"
             type="text"
             placeholder="Enter Your Name"
-            classNameInput="outline-none"
-            {...register("name", {
-              required: "Name cannot be Empty",
-            })}
+            {...register("name", { required: "Name cannot be Empty" })}
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
           <Input
             label="Email"
             type="email"
-            placeholder="Enter Your EMail"
-            classNameInput="outline-none"
+            placeholder="Enter Your Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -81,14 +92,14 @@ function Signupcomponent() {
               },
             })}
           />
-                    {errors.email && (
+          {errors.email && (
             <p className="text-red-500">{errors.email.message}</p>
           )}
+
           <Input
-            label="password"
+            label="Password"
             type="password"
             placeholder="Enter Your Password"
-            classNameInput="outline-none"
             {...register("password", {
               required: "Password is required",
               minLength: {
@@ -103,13 +114,14 @@ function Signupcomponent() {
               },
             })}
           />
-          <div className="mt-2">
-            <Button text="sign up" type="submit" className="w-full" />
-          </div>
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
-          
+
+          <div className="mt-2">
+            <Button text="Sign Up" type="submit" className="w-full" />
+          </div>
+
           {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         </form>
       </div>
