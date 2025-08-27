@@ -36,7 +36,7 @@ function Bloglinkcard({ $id, title, featuredimage, createdAt, createdBy }) {
             src={featuredimage || "https://via.placeholder.com/500x400"}
             alt={title}
             loading="lazy"
-            className="h-full z-50 w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-full  w-full object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </div>
 
