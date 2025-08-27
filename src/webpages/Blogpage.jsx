@@ -8,7 +8,14 @@ import postsimageobj from "../appwrite/userpostimage";
 
 function Blogpage() {
   const st = useSelector((state) => state.authslice.status);
-  const userdata = useSelector((state) => state.authslice.userdata);
+  const [userdata, setUserdata] = useState(null);
+  const data = useSelector((state) => state.authslice.userdata);
+  console.log(data);
+
+  // Sync local state with Redux data
+  useEffect(() => {
+    setUserdata(data);
+  }, [data]);
   const navigate = useNavigate();
   const { postid } = useParams();
   const [pst, setPst] = useState("");
@@ -114,11 +121,11 @@ function Blogpage() {
 
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg">
-              {pst.username?.charAt(0)?.toUpperCase() || "A"}
+              {userdata.email?.charAt(0)?.toUpperCase() || "A"}
             </div>
             <div>
               <p className="text-gray-800 font-semibold text-lg">
-                {pst.email || "Anonymous"}
+                {userdata.email || "Anonymous"}
               </p>
               <p className="text-gray-500 text-sm">{timeAgo}</p>
             </div>

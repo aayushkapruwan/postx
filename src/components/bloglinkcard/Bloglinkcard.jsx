@@ -5,36 +5,41 @@ import { useSelector } from "react-redux";
 function Bloglinkcard({ $id, title, featuredimage, createdAt, createdBy }) {
   const [userdata, setUserdata] = useState(null);
   const data = useSelector((state) => state.authslice.userdata);
-  console.log(data);
 
-  // Sync local state with Redux data
   useEffect(() => {
     setUserdata(data);
   }, [data]);
 
-  // Convert createdAt to a "time ago" format
   const timeAgo = useMemo(() => {
     if (!createdAt) return "Just now";
-  
-    
     const diff = Math.floor((Date.now() - new Date(createdAt)) / 1000);
     if (diff < 60) return `${diff} sec ago`;
     if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
     if (diff < 86400) return `${Math.floor(diff / 3600)} hrs ago`;
     if (diff < 604800) return `${Math.floor(diff / 86400)} days ago`;
     return new Date(createdAt).toLocaleDateString();
-
   }, [createdAt]);
+
   return (
     <Link to={`/post/${$id}`}>
-      <div className="group w-80 sm:w-88 md:w-96 rounded-3xl bg-amber-100 shadow-md hover:shadow-xl hover:shadow-black/60 transition-all duration-300 overflow-hidden relative">
-        {/* Image */}
-        <div className="h-56 w-full flex items-center justify-center bg-gray-200">
+      <div className="group w-80 sm:w-88 md:w-96 rounded-3xl bg-amber-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+        
+        {/* Image Container */}
+        <div className="h-56 w-full relative flex items-center justify-center bg-gray-200 overflow-hidden rounded-t-3xl">
+          
+          {/* Blurred Background */}
+          <img
+            src={featuredimage || "https://via.placeholder.com/500x400"}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover filter blur-3xl scale-110"
+          />
+
+          {/* Foreground Main Image */}
           <img
             src={featuredimage || "https://via.placeholder.com/500x400"}
             alt={title}
             loading="lazy"
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            className="relative z-10 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
 
