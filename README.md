@@ -1,4 +1,4 @@
-# Mini Twitter
+# postx
 
 A full-featured social media platform clone built with React, featuring user authentication, real-time posts, rich text editing, and interactive animations. Designed to mimic the core functionalities of popular social media platforms.
 
